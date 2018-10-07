@@ -1,7 +1,6 @@
 ---
 # file: roles/monitoring/tasks/05_configure_filebeat.yml
 
-
   - name: role monitoring | Configure and Start filebeat
     template:
       src: templates/filebeat.yml.j2
@@ -14,13 +13,18 @@
     # change line: 125.  host: "{{ my_kibanaserver }}:{{ my_kibanaserverport }}"
     # change line: 147   hosts: ["{{ my_elkserver }}:{{ my_elkport }}"]
 
+  - name: role monitoring | Check if filebeat modules system is enabled
+    shell: filebeat modules list system
+    register: output
+
+  #- debug: msg="{{ output.stdout.split('\n') }}"
+  - debug: msg="{{ output.stdout.find('system') != -1 }}"
+
   - name: role monitoring | Execute filebeat modules enable system
     shell: filebeat modules enable system
     ignore_errors: true
+    when: output.stdout.find('system') == false
 
   - name: role monitoring | Execute filebeat setup
     shell: filebeat setup
     notify: restart filebeat
-
-
-

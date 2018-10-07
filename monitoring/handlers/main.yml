@@ -1,4 +1,6 @@
 ---
+# file: roles/common/handlers/main.yml
+
 - name: restart ntp
   service:
     name: "{{ ntp_daemon }}"

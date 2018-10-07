@@ -14,3 +14,4 @@ ntpserver2: 2.fr.pool.ntp.org
 ntpserver3: 3.fr.pool.ntp.org
 #
 my_spacewalk: spacewalk.lanathome.com
+
