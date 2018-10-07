@@ -1,0 +1,40 @@
+---
+# file: roles/monitoring/tasks/02_ntp.conf.yml
+
+- name: role monitoring | Ensure timezone is set to Europe/Paris
+  shell: /bin/timedatectl set-timezone "{{ ntp_timezone }}"
+
+- name: role monitoring | Install ntp
+  yum:
+    name: ntp
+    state: installed
+
+- name: role monitoring | Enable ntp
+  service:
+    name: "{{ ntp_daemon }}"
+    state: started
+    enabled: true
+
+- name: role monitoring | Set timezone
+  timezone:
+    name: "{{ ntp_timezone }}"
+
+- name: role monitoring | Ensure NTP is running and enabled as configured.
+  service:
+    name: "{{ ntp_daemon }}"
+    state: started
+    enabled: true
+  when: ntp_enabled
+
+- name: role monitoring | Ensure NTP is stopped and disabled as configured.
+  service:
+    name: "{{ ntp_daemon }}"
+    state: stopped
+    enabled: false
+  when: not ntp_enabled
+
+- name: role monitoring | Generate ntp.conf file
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  notify: restart ntp

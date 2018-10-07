@@ -1,0 +1,16 @@
+---
+
+my_elkserver: elk01.lanathome.com
+my_kibanaserver: elk01.lanathome.com
+my_elkip: 192.168.1.85
+my_elkport: 9200
+my_kibanaserverport: 5601
+#
+ntp_timezone: Europe/Paris
+ntp_daemon: ntpd
+ntpserver0: 0.fr.pool.ntp.org
+ntpserver1: 1.fr.pool.ntp.org
+ntpserver2: 2.fr.pool.ntp.org
+ntpserver3: 3.fr.pool.ntp.org
+#
+my_spacewalk: spacewalk.lanathome.com

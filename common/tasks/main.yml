@@ -1,0 +1,10 @@
+---
+
+- include: 01_configure_selinux.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 02_set_locale.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 03_create_ngr.yml
+  when: ansible_os_family == 'RedHat'

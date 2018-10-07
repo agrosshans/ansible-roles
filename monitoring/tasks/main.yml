@@ -1,0 +1,17 @@
+---
+# file: roles/monitoring/tasks/main.yml
+
+- include: 01_get_repo_gpg_keys.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 02_ntp.conf.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 03_channel_subscription.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 04_install_filebeat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 05_configure_filebeat.yml
+  when: ansible_os_family == 'RedHat'

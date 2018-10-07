@@ -1,0 +1,17 @@
+---
+# roles/common/tasks/03_create_ngr.yml
+
+  - name: role common | Create ngr uid=501(ngr) gid=10(wheel)
+    user:
+      name: ngr
+      comment: Aurélien Grosshans
+      uid: 501
+      group: wheel
+      home: /home/ngr
+      create_home: yes
+
+  - name: role common | Set authorized key took from grosshaa's ssh
+    authorized_key:
+      user: ngr
+      state: present
+      key: "{{ lookup('file', '/Users/ngr/.ssh/id_rsa.pub') }}"

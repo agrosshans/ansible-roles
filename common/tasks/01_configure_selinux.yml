@@ -1,0 +1,8 @@
+---
+# roles/common/tasks/01_configure_selinux.yml
+
+  - name: role common | ensure SELINUX=enforcing
+    lineinfile:
+      path: /etc/selinux/config
+      regexp: '^SELINUX='
+      line: 'SELINUX=enforcing'

@@ -1,0 +1,9 @@
+---
+# file: roles/monitoring/tasks/04_install_filebeat.yml
+
+
+  - name: role monitoring | Install filebeat
+    yum:
+      name: filebeat
+      enablerepo: elasticsearch
+      state: latest

@@ -1,0 +1,79 @@
+---
+# file: roles/monitoring/tasks/01_get_repo_gpg_keys.yml
+
+    #wget http://spacewalk.lanathome.com/pub/RHN-ORG-TRUSTED-SSL-CERT -O /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+
+- name: role monitoring | check file RHN-ORG-TRUSTED-SSL-CERT presence
+  stat:
+    path: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+  register: rhnorgtrustedsslcert
+
+- name: role monitoring | get RHN-ORG-TRUSTED-SSL-CERT
+  uri:
+    url: http://spacewalk.lanathome.com/pub/RHN-ORG-TRUSTED-SSL-CERT
+    method: GET
+    dest: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+  when: rhnorgtrustedsslcert.stat.exists == False
+
+#
+
+- name: role monitoring | check file RPM-GPG-KEY-EPEL-7 presence
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+  register: gpgkeyepel7
+
+- name: role monitoring | get RPM-GPG-KEY-EPEL-7
+  uri:
+    url: https://spacewalk.lanathome.com/pub/GPG/RPM-GPG-KEY-EPEL-7
+    method: GET
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+    validate_certs: no
+    #client_cert: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+  when: gpgkeyepel7.stat.exists == False
+
+- name: role monitoring | import RPM-GPG-KEY-EPEL-7
+  rpm_key:
+    state: present
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+#
+
+- name: role monitoring | check file RPM-GPG-KEY-LANATHOME presence
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-LANATHOME
+  register: gpgkeylanathome
+
+- name: role monitoring | get RPM-GPG-KEY-LANATHOME
+  uri:
+    url: https://spacewalk.lanathome.com/pub/GPG/RPM-GPG-KEY-LANATHOME
+    method: GET
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-LANATHOME
+    validate_certs: no
+    #client_cert: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+  when: gpgkeylanathome.stat.exists == False
+
+- name: role monitoring | import RPM-GPG-KEY-LANATHOME
+  rpm_key:
+    state: present
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-LANATHOME
+
+#
+
+- name: role monitoring | check file RPM-GPG-KEY-elasticsearch presence
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-elasticsearch
+  register: gpgkeyelasticsearch
+
+- name: role monitoring | get RPM-GPG-KEY-elasticsearch
+  uri:
+    url: https://spacewalk.lanathome.com/pub/GPG/RPM-GPG-KEY-elasticsearch
+    method: GET
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-elasticsearch
+    validate_certs: no
+    #client_cert: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+  when: gpgkeyelasticsearch.stat.exists == False
+
+- name: role monitoring | import RPM-GPG-KEY-elasticsearch
+  rpm_key:
+    state: present
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-elasticsearch
