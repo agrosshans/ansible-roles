@@ -18,13 +18,19 @@
     register: output
 
   #- debug: msg="{{ output.stdout.split('\n') }}"
-  - debug: msg="{{ output.stdout.find('system') != -1 }}"
+  - debug: msg="{{ output.stdout.find('Enabled:\nsystem\n') != -1 }}"
 
   - name: role monitoring | Execute filebeat modules enable system
     shell: filebeat modules enable system
     ignore_errors: true
-    when: output.stdout.find('system') == false
+    when: output.stdout.find('Enabled:\nsystem\n')
 
   - name: role monitoring | Execute filebeat setup
     shell: filebeat setup
     notify: restart filebeat
+
+    # "stdout": "Enabled:\nsystem\n\nDisabled:\napache2\nauditd\nelasticsearch\nicinga\niis\nkafka\nkibana\nlogstash\nmongodb\nmysql\nnginx\nosquery\npostgresql\nredis\ntraefik", 
+    # "stdout_lines": [
+    #     "Enabled:", 
+    #     "system", 
+    #     "", 
