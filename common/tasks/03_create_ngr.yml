@@ -15,3 +15,19 @@
       user: ngr
       state: present
       key: "{{ lookup('file', '/Users/ngr/.ssh/id_rsa.pub') }}"
+
+  - name: role common | 
+    lineinfile:
+      path: /etc/sudoers
+      state: present
+      regexp: '^%wheel\s'
+      line: '# %wheel  ALL=(ALL)       ALL'
+      validate: '/usr/sbin/visudo -cf %s'
+
+  - name: role common | Configure sudo for user ngr
+    lineinfile:
+      path: /etc/sudoers.d/ngr
+      state: present
+      line: "ngr        ALL=(ALL)       NOPASSWD: ALL"
+      create: yes
+      validate: '/usr/sbin/visudo -cf %s'
