@@ -1,7 +1,23 @@
 ---
 # roles/common/tasks/03_create_ngr.yml
 
-  - name: role common | Set authorized key took from grosshaa's ssh
+  - name: role common | Create homedir for ngr
+    file:
+      path: /home/ngr
+      owner: ngr
+      setype: unconfined_u:object_r:user_home_dir_t:s0
+      state: directory
+      mode: 0755
+
+  - name: role common | Create homedir for ngr
+    file:
+      path: /home/ngr/.ssh
+      owner: ngr
+      setype: unconfined_u:object_r:user_home_dir_t:s0
+      state: directory
+      mode: 0700
+
+  - name: role common | Set authorized key took from ngr's ssh
     authorized_key:
       user: ngr
       state: present

@@ -2,4 +2,4 @@
 # file: roles/common/tasks/07_rhn_register
 
   - name: role common | Subscribe host to spacewalk 
-    shell: /sbin/rhnreg_ks --serverUrl=https://spacewalk.lanathome.com/XMLRPC --sslCACert=/usr/share/pki/ca-trust-source/anchors/lanathome.crt --activationkey=1-01a0cb409e45dc5766b067f2a6c27e0e
+    shell: /sbin/rhnreg_ks --serverUrl=https://spacewalk.lanathome.com/XMLRPC --sslCACert=/usr/share/pki/ca-trust-source/anchors/lanathome.crt --activationkey=1-01a0cb409e45dc5766b067f2a6c27e0e --force

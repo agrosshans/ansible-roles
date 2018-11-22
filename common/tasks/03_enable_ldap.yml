@@ -1,0 +1,37 @@
+---
+# roles/common/tasks/03_configure_ldap.yml
+
+  - name: role common | Configure auth over ldap
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - openldap-clients
+      - nss-pam-ldapd
+      - authconfig
+
+  - name: role common | Turn-on auth over ldap
+    shell: "{{ item }}"
+    with_items:
+      - /sbin/authconfig --enableforcelegacy --update
+      - /sbin/authconfig --enableldap --enableldapauth --ldapserver=ldap.lanathome.com --ldapbasedn=dc=ldap,dc=lanathome,dc=com --update
+      - /sbin/authconfig --enablemkhomedir --update
+      - /sbin/authconfig --disableldapstarttls --update
+
+  - name: centos 7 postinstall | Copy ldap.conf
+    copy:
+      src: files/sudo-ldap.conf
+      dest: /etc/sudo-ldap.conf
+      owner: root
+      group: root
+      mode: 0640
+
+  - name: role common | Enable LDAP sudoers in /etc/nsswitch.conf
+    lineinfile:
+      path: /etc/nsswitch.conf
+      line: "sudoers:    ldap"
+
+  - name: role common | Restart nscd
+    service:
+      name: nscd
+      state: restarted
