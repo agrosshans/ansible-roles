@@ -1,0 +1,14 @@
+---
+# file: roles/common/tasks/05_install_packages.yml
+
+  - name: role common | Install additional packages
+    yum:
+      name: "{{ item }}"
+      state: present 
+    loop:
+      - wget
+      - rhn-setup
+      - rhn-check
+      - rhnlib
+      - rhn-client-tools
+      - rhnsd

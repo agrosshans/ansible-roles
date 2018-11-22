@@ -27,7 +27,6 @@
     url: https://spacewalk.lanathome.com/pub/GPG/RPM-GPG-KEY-EPEL-7
     method: GET
     dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-    validate_certs: no
     #client_cert: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
   when: gpgkeyepel7.stat.exists == False
 
@@ -48,6 +47,7 @@
     url: https://spacewalk.lanathome.com/pub/GPG/RPM-GPG-KEY-LANATHOME
     method: GET
     dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-LANATHOME
+    client_cert: 
     validate_certs: no
     #client_cert: /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
   when: gpgkeylanathome.stat.exists == False

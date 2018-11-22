@@ -1,0 +1,17 @@
+---
+# file: roles/common/tasks/06_install_pki.yml
+
+
+  - name: role common | Enable CA store
+    shell: /bin/update-ca-trust enable
+
+  - name: role common | Install pki
+    copy:
+      src: files/lanathome.pki
+      dest: /usr/share/pki/ca-trust-source/anchors/lanathome.crt
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: role common | Update CA store
+    shell: /bin/update-ca-trust extract
