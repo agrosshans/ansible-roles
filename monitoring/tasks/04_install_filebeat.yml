@@ -6,4 +6,4 @@
     yum:
       name: filebeat
       enablerepo: elasticsearch
-      state: latest
+      state: present
