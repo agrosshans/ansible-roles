@@ -7,20 +7,26 @@
 - include: 02_set_locale.yml
   when: ansible_os_family == 'RedHat'
 
+- include: 04_sshd_config.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 05_disable_repo.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 05_disable_repo.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: 05_install_packages.yml
+  when: ansible_os_family == 'RedHat'
+
 - include: 03_enable_ldap.yml
   when: ansible_os_family == 'RedHat'
 
 - include: 03_create_ngr.yml
   when: ansible_os_family == 'RedHat'
 
-- include: 04_sshd_config.yml
-  when: ansible_os_family == 'RedHat'
+# - include: 06_install_pki.yml
+#   when: ansible_os_family == 'RedHat'
 
-- include: 05_install_packages.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: 06_install_pki.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: 07_rhn_register.yml
-  when: ansible_os_family == 'RedHat'
+# - include: 07_rhn_register.yml
+#   when: ansible_os_family == 'RedHat'

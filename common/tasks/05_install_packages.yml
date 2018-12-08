@@ -1,6 +1,9 @@
 ---
 # file: roles/common/tasks/05_install_packages.yml
 
+  - name: role common | get GPG key
+    command: /bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
   - name: role common | Install additional packages
     yum:
       name: "{{ item }}"
