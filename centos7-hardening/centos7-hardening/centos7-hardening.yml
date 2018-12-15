@@ -1,6 +1,6 @@
 ---
 
-- hosts: centos7-1 centos7-2
+- hosts: all
   become: yes
 
 # based on documentation CIS_CentOS_Linux_7_Benchmark_v2.1.1.pdf

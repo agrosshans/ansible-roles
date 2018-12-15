@@ -1,6 +1,18 @@
 ---
 # file: roles/monitoring/tasks/05_configure_filebeat.yml
 
+  - name: role monitoring | Import elk01.lanathome.com SSL Cert
+    copy:
+      src: templates/elk01.lanathome.com.crt.j2
+      dest: /etc/pki/ca-trust/source/anchors/elk01.lanathome.com
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+
+  - name: role monitoring | Update ca-trust
+    shell: /bin/update-ca-trust
+
   - name: role monitoring | Configure and Start filebeat
     template:
       src: templates/filebeat.yml.j2

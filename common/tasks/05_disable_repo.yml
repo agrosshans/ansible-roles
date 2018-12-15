@@ -11,7 +11,7 @@
       backup: yes
 
 
-  - name: role common | yum-clean-metadata
-    command: yum clean metadata
-    args:
-      warn: no
+  # - name: role common | yum-clean-metadata
+  #   command: yum clean metadata
+  #   args:
+  #     warn: no
