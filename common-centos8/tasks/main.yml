@@ -1,0 +1,83 @@
+---
+# file: roles/common-centos8/tasks/main.yml
+
+- include: 01_set_dns.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 01_configure_selinux.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 02_set_locale.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 02_disable_ipv6.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 04_sshd_config.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 03_install_necessary_packages.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 05_disable_repo.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 06_install_pki.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 07_rhn_register.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+- include: 05_install_packages.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+# - include: 03_create_ngr.yml
+#   when: ansible_os_family == 'RedHat'
+
+- include: 08_enable_rhn_channel.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+
+# - include: 06_install_pki.yml
+#   when: ansible_os_family == 'RedHat'
+
+# - include: 07_rhn_register.yml
+#   when: ansible_os_family == 'RedHat'
+
+- include: 03_enable_ldap.yml
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"

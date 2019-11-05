@@ -1,0 +1,18 @@
+---
+# file: roles/common-centos8/tasks/05_install_packages.yml
+
+  - name: role common-centos8 | Get GPG key
+    command: /bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+  - name: role common-centos8 | Install additional packages
+    yum:
+      name: "{{ packages }}"
+      state: present 
+    vars:
+      packages:
+        - wget
+        - rhn-setup
+        - rhn-check
+        - rhnlib
+        - rhn-client-tools
+        - rhnsd

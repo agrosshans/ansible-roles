@@ -1,0 +1,11 @@
+---
+# file: roles/common-centos8/tasks/01_configure_selinux.yml
+
+  - name: role common-centos7 | ensure SELINUX=enforcing
+    lineinfile:
+      path: /etc/selinux/config
+      regexp: '^SELINUX='
+      line: 'SELINUX=enforcing'
+    when:
+      - ansible_distribution == "CentOS"
+      - ansible_distribution_major_version == "8"

@@ -5,5 +5,5 @@
   - name: role monitoring | Install filebeat
     yum:
       name: filebeat
-      enablerepo: elasticsearch
+      enablerepo: elasticsearch-7
       state: present

@@ -2,7 +2,7 @@
 
   - name: role monitoring | Configure ElasticSearch rhn_channel 
     rhn_channel:
-      name: elasticsearch
+      name: elasticsearch-7
       sysname: "{{ ansible_fqdn }}"
       url: http://spacewalk.lanathome.com/rpc/api
       user: register

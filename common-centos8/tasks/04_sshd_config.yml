@@ -1,0 +1,13 @@
+---
+# file: roles/common-centos8/tasks/04_sshd_config.yml
+
+
+  - name: role common-centos8 | Configure sshd
+    template:
+      src: templates/sshd_config.j2
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: 0600
+      backup: yes
+    notify: restart sshd

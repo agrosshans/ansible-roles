@@ -1,0 +1,22 @@
+---
+# file: roles/common/tasks/03_install_necessary_packages.yml
+
+  - name: role common | get GPG key
+    #command: /bin/rpm --import /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+    command: /bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+    args:
+      warn: false # set warn=false to prevent warning
+
+  - name: role common | Install necessary packages
+    yum:
+      name: "{{ item }}"
+      state: present 
+    loop:
+      - wget
+      - lsof
+      - nc
+      - rhn-setup
+      - rhn-check
+      - rhnlib
+      - rhn-client-tools
+      - rhnsd

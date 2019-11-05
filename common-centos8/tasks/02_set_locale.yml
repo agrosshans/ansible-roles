@@ -1,0 +1,10 @@
+---
+# file: roles/common-centos8/tasks/02_set_locale.yml
+
+  - name: role common-centos8 | Set LANG, LC_ALL
+    blockinfile:
+      path: /etc/environment
+      create: yes
+      block: |
+        LANG=en_US.utf-8
+        LC_ALL=en_US.utf-8

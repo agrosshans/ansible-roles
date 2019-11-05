@@ -1,0 +1,5 @@
+---
+# file: roles/common-centos8/tasks/07_rhn_register
+
+  - name: role common-centos8 | Subscribe Centos8 host to spacewalk
+    shell: /sbin/rhnreg_ks --serverUrl=https://spacewalk.lanathome.com/XMLRPC --sslCACert=/usr/share/pki/ca-trust-source/anchors/lanathome.crt --activationkey=1-81a22a5adc9204ed1a3976670c388574 --force

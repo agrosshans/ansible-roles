@@ -1,0 +1,16 @@
+---
+# file: roles/common-centos8/tasks/06_install_pki.yml
+
+  - name: role common-centos8 | Enable CA store
+    shell: /bin/update-ca-trust enable
+
+  - name: role common-centos8 | Install pki
+    copy:
+      src: files/lanathome.pki
+      dest: /usr/share/pki/ca-trust-source/anchors/lanathome.crt
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: role common-centos8 | Update CA store
+    shell: /bin/update-ca-trust extract

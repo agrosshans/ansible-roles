@@ -1,0 +1,18 @@
+---
+# file: roles/common/tasks/08_enable_rhn_channel.yml
+
+  - name: role common | enable rhn_channel CentOS-7-x86_64-1908 extras
+    shell:
+      rhn-channel --add --channel=centos-7-extras-x86_64-1908 --user=register --password=register
+
+  - name: role common | enable rhn_channel CentOS-7-x86_64-1908 updates
+    shell:
+      rhn-channel --add --channel=centos-7-updates-x86_64-1908 --user=register --password=register
+
+  - name: role common | enable rhn_channel elasticsearch-7
+    shell:
+     rhn-channel --add --channel=elasticsearch-7 --user=register --password=register
+
+  - name: role common | enable rhn_channel spacewalk-2.9-client
+    shell:
+      rhn-channel --add --channel=spacewalk-2.9-client --user=register --password=register

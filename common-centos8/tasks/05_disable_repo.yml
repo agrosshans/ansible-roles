@@ -1,0 +1,29 @@
+---
+# file: roles/common-centos8/tasks/05_disable_repo.yml
+
+  - name: role common-centos8 | disable repo CentOS-Base.repo
+    template:
+      src: templates/CentOS-Base.repo.j2
+      dest: /etc/yum.repos.d/CentOS-Base.repo
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+
+  - name: role common-centos8 | disable repo CentOS-AppStream
+    template:
+      src: templates/CentOS-AppStream.repo.j2
+      dest: /etc/yum.repos.d/CentOS-AppStream.repo
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+
+  - name: role common-centos8 | disable repo CentOS-Extras
+    template:
+      src: templates/CentOS-Extras.repo.j2
+      dest: /etc/yum.repos.d/CentOS-Extras.repo
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes

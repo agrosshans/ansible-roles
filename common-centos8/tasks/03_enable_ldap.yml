@@ -1,0 +1,68 @@
+---
+# file: roles/common-centos8/tasks/03_configure_ldap.yml
+
+  - name: role common-centos8 | Install necessary package for authN and authZ over ldap
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - nss-pam-ldapd
+      - openldap
+      - openldap-clients
+      - sssd
+      - sssd-client
+      - sssd-ldap
+
+  - name: role common-centos8 | Copy ldap.conf
+    copy:
+      src: files/ldap.conf
+      dest: /etc/openldap/ldap.conf
+      owner: root
+      group: root
+      mode: 0640
+
+  - name: role common-centos8 | Copy nsswitch.conf
+    copy:
+      src: files/nsswitch.conf
+      dest: /etc/authselect/nsswitch.conf
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: role common-centos8 | Copy authconfig-sssd.conf
+    copy:
+      src: files/authconfig-sssd.conf
+      dest: /etc/sssd/conf.d/authconfig-sssd.conf
+      owner: root
+      group: root
+      mode: 0600
+
+  - name: role common-centos8 | Copy ldap.lanathome.com.pem
+    copy:
+      src: files/ldap.lanathome.com.pem
+      dest: /etc/openldap/certs/ldap.lanathome.com.pem
+      owner: root
+      group: root
+      mode: 0640
+
+  - name: role common-centos8 | Copy ldap.lanathome.com.pem to ca-trust
+    copy:
+      src: files/ldap.lanathome.com.pem
+      dest: /etc/pki/ca-trust/source/anchors/ldap.lanathome.com.pem 
+      owner: root
+      group: root
+      mode: 0640
+
+  - name: role common-centos8 | Run update-ca-trust extract
+    shell: update-ca-trust extract
+
+  - name: role common-centos8 | Add pam_mkhomedir.so to /etc/pam.d/password-auth
+    lineinfile:
+      path: /etc/pam.d/password-auth
+      line: 'session     required                                     pam_mkhomedir.so skel=/etc/skel/ umask=0022'
+
+  - name: role common-centos8 | Enable service sssd
+    service:
+      name: sssd
+      enabled: yes
+      state: restarted
